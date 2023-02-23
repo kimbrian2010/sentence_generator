@@ -14,18 +14,22 @@ const options = {
 const api_url = "https://api.api-ninjas.com/v1/chucknorris?limit=1"
 
 async function getSentence() {
-    jokeParagraph.inert = "Fetching joke..." /*msg to appear we wait for the joke to be fetched */
-    btn.disabled = true
-    btn.innerText = "Upadating joke"
+    try {
+        jokeParagraph.innerText = "Fetching joke..." /*msg to appear we wait for the joke to be fetched */
+        btn.disabled = true
+        btn.innerText = "Upadating joke"
 
-    const response = await fetch(api_url, options)
-    const data = await response.json()
+        const response = await fetch(api_url, options)
+        const data = await response.json()
 
-    btn.disabled = false
-    btn.innerText = "Get New Joke"
+        btn.disabled = false
+        btn.innerText = "Get New Joke"
 
-    jokeParagraph.innerText = data.joke
-    console.log(data)
+        jokeParagraph.innerText = data.joke
+
+    } catch (error) {
+        jokeParagraph.innerText = "Something went wrong, try later!"
+    }
 }
 
 btn.addEventListener("click", getSentence)
